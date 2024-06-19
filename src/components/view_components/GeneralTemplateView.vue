@@ -9,22 +9,24 @@
             <el-table-column prop="createDate" label="文件创建日期"></el-table-column>
             <el-table-column prop="updateDate" label="文件修改日期"></el-table-column>
             <el-table-column label="操作">
-                <el-button type="text" size="small">查看</el-button>
-                <el-button type="text" size="small">编辑</el-button>
-                <el-button type="text" size="small">删除</el-button>
-                &emsp14;
-                <!--下拉菜单-->
-                <el-dropdown size="small" split-button type="text" trigger="click">
-                    <span class="el-dropdown-link">
-                        更多操作
-                    </span>
-                    <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>
-                            <el-button type="text" size="small">文档生成</el-button>
-                            <el-button type="text" size="small">文档下载</el-button>
-                        </el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown>
+                <template slot-scope="scope">
+                    <el-button type="text" size="small">查看</el-button>
+                    <el-button type="text" size="small">编辑</el-button>
+                    <el-button type="text" size="small" @click="delete_file(scope.row)">删除</el-button>
+                    &emsp14;
+                    <!--下拉菜单-->
+                    <el-dropdown size="small" split-button type="text" trigger="click">
+                        <span class="el-dropdown-link">
+                            更多操作
+                        </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>
+                                <el-button type="text" size="small">文档生成</el-button>
+                                <el-button type="text" size="small">文档下载</el-button>
+                            </el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                </template>
             </el-table-column>
         </el-table>
         <el-button type="primary" size="small" class="cnbtn" @click="toggleDialog">新建模版</el-button>
@@ -33,7 +35,10 @@
 
 <script>
 import { getTableDataRequest } from '@/js/api.js'
+import { postRequestWithStringParm } from '@/js/api.js';
 import CreateNewDialog from '../dialog/CreateNewDialogView.vue'
+import axios from 'axios';
+import qs from 'qs'
 
 export default {
     components: {
@@ -105,6 +110,16 @@ export default {
         handdleDialogVisible(value) {
             this.isVisible = value
         },
+
+        delete_file(row) {
+            const filePath = row.filePath;
+            postRequestWithStringParm('doc/delete_file', filePath).then(
+                response => {
+                    alert(response.data.msg)
+                    location.reload()
+                }
+            )
+        }
     }
 }
 </script>

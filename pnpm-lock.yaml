@@ -20,6 +20,9 @@ importers:
       moment:
         specifier: ^2.30.1
         version: 2.30.1
+      qs:
+        specifier: ^6.12.1
+        version: 6.12.1
       register-service-worker:
         specifier: ^1.7.2
         version: 1.7.2
@@ -3206,6 +3209,10 @@ packages:
 
   qs@6.11.0:
     resolution: {integrity: sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==}
+    engines: {node: '>=0.6'}
+
+  qs@6.12.1:
+    resolution: {integrity: sha512-zWmv4RSuB9r2mYQw3zxQuHWeU+42aKi1wWig/j4ele4ygELZ7PEO6MM7rim9oAQH2A5MWfsAVf/jPvTPgCbvUQ==}
     engines: {node: '>=0.6'}
 
   queue-microtask@1.2.3:
@@ -7593,6 +7600,10 @@ snapshots:
   punycode@2.3.1: {}
 
   qs@6.11.0:
+    dependencies:
+      side-channel: 1.0.6
+
+  qs@6.12.1:
     dependencies:
       side-channel: 1.0.6
 

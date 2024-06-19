@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { Message } from 'element-ui'
-import router from '@/router'
+import qs from 'qs'
 
 const httptool = axios.create({
     baseURL: 'http://localhost:8088',
@@ -20,4 +19,10 @@ export function postRequestForClass(path, obj) {
     return axios.post(urlBuilder(path), obj, {
         headers: { 'Content-Type': 'application/json' }
     })
+}
+
+export function postRequestWithStringParm(path, param) {
+    return axios.post(urlBuilder(path), qs.stringify({"filePath": param}, {
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }))
 }
