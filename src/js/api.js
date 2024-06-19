@@ -7,7 +7,17 @@ const httptool = axios.create({
     timeout: 1000,
 })
 
+function urlBuilder(param){
+    return "http://localhost:8088/" + param 
+}
+
 export function getTableDataRequest(param) {
-    const url = "http://localhost:8088/"+param
-    return axios.get(url)
+    return axios.get(urlBuilder(param))
+}
+
+export function postRequestForClass(path, obj) {
+    
+    return axios.post(urlBuilder(path), obj, {
+        headers: { 'Content-Type': 'application/json' }
+    })
 }
