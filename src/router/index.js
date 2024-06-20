@@ -23,6 +23,15 @@ const routes = [
       }
     ]
   },
+
+  {
+    path:'/doc_view',
+    component: () => import('@/components/office/DocViewComponent.vue')
+  },
+  {
+    path:'/edit_doc',
+    component: ()=> import('@/components/office/DocEditComponent.vue')
+  }
 ]
 
 const router = new VueRouter({
