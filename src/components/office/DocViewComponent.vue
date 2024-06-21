@@ -18,7 +18,7 @@ export default {
     const filePath = window.external.UserParams;
     // 请求后端项目打开文件的controller方法
     postRequestWithStringParm("office/view",filePath).then(response => {
-      this.poHtmlCode = response.data;
+      this.poHtmlCode = response.data.data;
     }).catch(function (erro) {
       console.log(erro)
     })

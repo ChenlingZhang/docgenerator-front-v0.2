@@ -14,6 +14,20 @@
           </el-table>
         </el-collapse-item>
       </el-collapse>
+
+      <el-collapse>
+        <el-collapse-item title="固定表格数据标签">
+          <el-table :data="data_tag_f1">
+            <el-table-column prop="name" label="书签名"></el-table-column>
+            <el-table-column prop="caption" label="显示名称"></el-table-column>
+            <el-table-column label="操作">
+              <template slot-scope="scope">
+                <el-tag size="mini" @click="add_dataRegion(scope.row)" class="addRegionBtn">添加</el-tag>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-collapse-item>
+      </el-collapse>
     </div>
 
     <div class="right-container">
@@ -32,6 +46,7 @@ export default {
       poHtmlCode: '',
       template_tag: [],
       used_template_tag: [],
+      data_tag_f1: [],
     }
   },
 
@@ -39,7 +54,7 @@ export default {
     const filePath = window.external.UserParams;
     console.log(filePath)
     postRequestWithStringParm("office/edit", filePath).then(response => {
-      this.poHtmlCode = response.data;
+      this.poHtmlCode = response.data.data;
     })
   },
 
@@ -59,7 +74,13 @@ export default {
     },
 
     loadData() {
-      this.template_tag = JSON.parse(pageofficectrl.word.DataRegionsDefinedAsJson);
+      const data_tags = JSON.parse(pageofficectrl.word.DataRegionsDefinedAsJson);
+      for (let i = 0; i < data_tags.length; i++) {
+        if (data_tags[i].name.startsWith('PO_Data_Result_Form1_')) {
+          this.data_tag_f1.push(data_tags[i]);
+        }
+        else this.template_tag.push(data_tags[i]);
+      }
     },
 
     add_dataRegion(row) {
